@@ -1,0 +1,7 @@
+./freertos_car_driver/Debug
+./freertos_car_driver/.settings
+pcb/_auto*
+pcb/fp-info-cache
+pcb/pcb-cache.lib
+pcb/pcb.kicad_pcb-bak
+pcb/*release.zip
