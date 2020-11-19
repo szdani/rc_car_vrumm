@@ -1,7 +1,15 @@
-./freertos_car_driver/Debug
-./freertos_car_driver/.settings
+freertos_car_driver/Debug
+freertos_car_driver/.settings
+freertos_car_driver/.cproject
+freertos_car_driver/.mxproject
+freertos_car_driver/.project
+freertos_car_driver/.settings/
+
 pcb/_auto*
 pcb/fp-info-cache
 pcb/pcb-cache.lib
 pcb/pcb.kicad_pcb-bak
 pcb/*release.zip
+
+.vscode
+pc_client/__pycache__
