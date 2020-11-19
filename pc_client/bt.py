@@ -6,6 +6,9 @@ from pubsub import utils as pubsubutils
 
 import logging
 
+import threading
+
+
 class Bluetooth():
     
     def __init__(self, address, name="HC-05", passkey="1234", port=1):
@@ -67,6 +70,7 @@ class Bluetooth():
             self.socket_in_use.wait()
             self.socket_in_use.clear()
             msg = self.socket.recv(size)
+
             msg = str(msg, 'utf-8')
             if process_msg:
                 msg = self.process_raw_message(msg)
@@ -105,12 +109,17 @@ class BluetoothBroker():
         pub.subscribe(handler, topic)
 
     def start(self):
-        self.running = True
-        while self.running:
-            frame = self.bt_connection.receive(30, process_msg=True)
-            topic, msg = frame.split(':')
-            pub.sendMessage(topic, message=msg)
+        def recv():
+            self.running = True
+            while self.running:
+                frame = self.bt_connection.receive(30, process_msg=True)
+                topic, msg = frame.split(':')
+                pub.sendMessage(topic, message=msg)
 
+        t = threading.Thread(target=recv,name='bt')
+        t.daemon = True
+        t.start()
 
     def stop(self):
+        logging.info("Stopping pubsub broker!")
         self.running=False

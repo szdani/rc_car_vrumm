@@ -98,6 +98,9 @@ class App(Frame):
         self.disconnect_button.place(x=125, y=10)
         self.disconnect_button["state"] = "disabled"
 
+        self.exit_button = Button(master, text = 'Exit App', command = self.exit)
+        self.exit_button.place(x=225, y=10)
+
         self.text = Text(master, height=10, width=70)
         self.text.place(x=0, y=80)
         self.vsb = Scrollbar(master, orient="vertical", command=self.text.yview)
@@ -124,7 +127,8 @@ class App(Frame):
             self.connect_button["state"] = "disabled"
             self.disconnect_button["state"] = "normal"
         except Exception as e:
-            self.label.configure(text='Connection error: {}'.format(e))
+            self.text.insert("end", ('BT Connection Error!: %s' % (mesgData)) + "\n")
+            self.text.see("end")
             return
         logging.info('Connected BT')
         self.broker.subscribe('DIS', self.process_distance_frame)
@@ -134,10 +138,18 @@ class App(Frame):
     def disconnect(self):
         '''Disconnect button callback. Exits BT connection.
         '''
+        self.broker.stop()
         self.bt_connection.close()
         self.connection_flag = False
         self.connect_button["state"] = "normal"
         self.disconnect_button["state"] = "disabled"
+
+    def exit(self):
+        if self.connection_flag == True:
+            self.bt_connection.close()
+            self.connection_flag = False
+            self.broker.stop()
+        exit()
 
     def snoop(self, topicObj=bt.BluetoothBroker.AUTO_TOPIC, **mesgData):
         '''Subscriber callback for debugging. Prints out every message on every topic.
@@ -176,4 +188,8 @@ if __name__ == "__main__":
     root.wm_title("Car Debug GUI")
     root.geometry("600x600")
     logging.info('App started!')
-    root.mainloop() 
+    try:
+        root.mainloop()
+    except KeyboardInterrupt:
+        logging.info('Keyboard interrupt received - Exit.')
+        exit()
