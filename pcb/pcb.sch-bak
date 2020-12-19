@@ -705,7 +705,7 @@ Text GLabel 9750 3050 0    50   Input ~ 0
 HSE_IN
 Text GLabel 9750 3150 0    50   Input ~ 0
 HSE_OUT
-Text GLabel 9750 5150 0    50   Input ~ 0
+Text GLabel 11050 5150 2    50   Input ~ 0
 SYS_SWCLK
 $Comp
 L Regulator_Linear:AMS1117-3.3 U4
@@ -1151,7 +1151,7 @@ Wire Notes Line
 	9500 6700 9500 5900
 Text Notes 9500 5900 0    50   ~ 0
 STM32_RESET
-Text GLabel 9750 5050 0    50   Input ~ 0
+Text GLabel 11050 5050 2    50   Input ~ 0
 SYS_SWDIO
 Text GLabel 11050 4550 2    50   Input ~ 0
 MOTOR1_CH1
@@ -1211,8 +1211,6 @@ F 3 "~" H 12150 5150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	12000 5050 12150 5050
-NoConn ~ 11050 5050
-NoConn ~ 11050 5150
 NoConn ~ 11050 5250
 NoConn ~ 9750 4250
 NoConn ~ 9750 4150
@@ -1221,16 +1219,8 @@ NoConn ~ 9750 3950
 NoConn ~ 9750 3850
 NoConn ~ 9750 3750
 NoConn ~ 11050 3750
-NoConn ~ 11050 4050
-NoConn ~ 11050 4150
 NoConn ~ 9750 5250
 NoConn ~ 9750 4950
-Wire Wire Line
-	11050 4950 11500 4950
-Wire Wire Line
-	11500 4950 11500 5050
-Wire Wire Line
-	11500 5050 11700 5050
 $Comp
 L power:GND #PWR049
 U 1 1 5FD494F7
@@ -1857,4 +1847,12 @@ F 3 "https://datasheet.lcsc.com/szlcsc/Yangxing-Tech-X322516MLB4SI_C13738.pdf" H
 	1    8300 6150
 	1    0    0    -1  
 $EndComp
+NoConn ~ 9750 5050
+NoConn ~ 9750 5150
+NoConn ~ 11050 4050
+NoConn ~ 11050 4150
+Wire Wire Line
+	11700 4950 11700 5050
+Wire Wire Line
+	11050 4950 11700 4950
 $EndSCHEMATC
